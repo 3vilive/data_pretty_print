@@ -1,5 +1,7 @@
 # pretty print
 
+pretty print data in mysql format
+
 ## Usage
 
 
@@ -8,8 +10,39 @@
 ```python
 from pretty_print import pretty_print
 
-example_fields = ...
-example_data_list = ...
+example_fields = ('CompanyName', 'ContactName', 'Address', 'City')
+example_data_list = [
+    {
+        'CompanyName': u'Alfreds Futterkiste',
+        'ContactName': u'Maria Anders',
+        'Address': u'Obere Str. 57',
+        'City': u'Berlin'
+    },
+    {
+        'CompanyName': u'Berglunds snabbköp',
+        'ContactName': u'Christina Berglund',
+        'Address': u'Berguvsvägen 8',
+        'City': u'Luleå'
+    },
+    {
+        'CompanyName': u'Centro comercial Moctezuma',
+        'ContactName': u'Francisco Chang',
+        'Address': u'Sierras de Granada 9993',
+        'City': u'México D.F.'
+    },
+    {
+        'CompanyName': u'Galería del gastrónomo',
+        'ContactName': u'Eduardo Saavedra',
+        'Address': u'Rambla de Cataluña, 23',
+        'City': u'Barcelona'
+    },
+    {
+        'CompanyName': u'Island Trading',
+        'ContactName': u'Helen Bennett',
+        'Address': u'Garden House Crowther Way',
+        'City': u'Cowes'
+    },
+]
 
 pretty_print(example_fields, example_data_list)
 ```
