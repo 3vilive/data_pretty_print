@@ -69,6 +69,7 @@ with open('example_file', 'w') as f:
 ```
 
 - StringIO is also available
+
 ```python
 from StringIO import StringIO
     
