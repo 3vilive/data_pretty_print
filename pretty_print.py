@@ -3,9 +3,17 @@
 import sys
 from numbers import Number
 
+_ver = sys.version_info
+
+is_py2 = (_ver[0] == 2)
+is_py3 = (_ver[0] == 3)
+
+
+if is_py3:
+    unicode = str
+
 
 DEFAULT_SPACE_PADDING = 2
-
 PLUS_SIGN = '+'
 ROW_SIGN = '-'
 COLUMN_SIGN = '|'
@@ -81,17 +89,20 @@ class PrettyDataPainter:
             self._paint_split_row()
 
     def _write_fp(self, content):
-        self.fp.write(content.encode('utf8'))
+        if is_py2:
+            self.fp.write(content.encode('utf8'))
+        elif is_py3:
+            self.fp.write(content)
 
     def _paint_row(self, fields, align=Align.LEFT_ALIGN):
         for pos, field in enumerate(fields):
             width = self.fields_width[pos]
 
             if align == Align.LEFT_ALIGN:
-                paint_body = str(field) + ' ' * (width - Helper.special_len(field) - 2)
+                paint_body = str(field) + ' ' * (width - Helper.special_len(field) - DEFAULT_SPACE_PADDING)
 
             elif align == Align.RIGHT_ALIGN:
-                paint_body = ' ' * (width - Helper.special_len(field) - 2) + Helper.special_stringify(field)
+                paint_body = ' ' * (width - Helper.special_len(field) - DEFAULT_SPACE_PADDING) + Helper.special_stringify(field)
 
             else:
                 paint_body = ' ' * width
@@ -153,14 +164,13 @@ def example():
     with open('example_file', 'w') as f:
         pretty_print(example_fields, example_data_list, f)
 
-    from StringIO import StringIO
+    from io import StringIO
 
     str_io = StringIO()
     pretty_print(example_fields, example_data_list, str_io)
     str_io.seek(0)
 
     print(str_io.read())
-
 
 
 if __name__ == '__main__':

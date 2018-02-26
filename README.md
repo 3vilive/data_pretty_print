@@ -71,7 +71,7 @@ with open('example_file', 'w') as f:
 - StringIO is also available
 
 ```python
-from StringIO import StringIO
+from io import StringIO
     
 str_io = StringIO()
 pretty_print(example_fields, example_data_list, str_io)
